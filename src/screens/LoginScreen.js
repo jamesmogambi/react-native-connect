@@ -10,6 +10,7 @@ import {
     Button,
     HStack,
     Center,
+    ScrollView
 } from 'native-base';
 
 // LoginScreen- 
@@ -17,7 +18,8 @@ import {
 // for authentication
 const LoginScreen = (props) => {
     return (
-        <Center flex={1} bg="white" >
+        <ScrollView bg="white">
+        <Center flex={1}  >
                 <Box
                     flex={1}
                     p={2}
@@ -65,7 +67,8 @@ const LoginScreen = (props) => {
                         </HStack>
                     </VStack>
                 </Box>
-        </Center>
+            </Center>
+        </ScrollView>
     )
 }
 

@@ -1,7 +1,7 @@
-import React ,{useState }from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from 'native-base';
-import { AuthNavigator } from './src/navigation/AppNavigation';
+import { AuthNavigator, TabNavigator, AppNavigator } from './src/navigation/AppNavigation';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,8 +9,8 @@ const App = () => {
   // if (isLoading) return <LoaderScreen />;
   return (
     <NativeBaseProvider >
-      <NavigationContainer  >
-        <AuthNavigator />
+      <NavigationContainer>
+          <AppNavigator />
       </NavigationContainer>
     </NativeBaseProvider>
   );

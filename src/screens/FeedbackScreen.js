@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     Box,
     Heading,
@@ -6,32 +6,26 @@ import {
     FormControl,
     Input,
     Button,
-    Center,
-    ScrollView
+    TextArea,
+    ScrollView,
 } from 'native-base';
-import { _ScrollView } from 'react-native';
 
-
-// SignUpScreen -
-// Allows user to input credentials for signup namely: email and password and submit 
-// to server for signup
-const SignUpScreen = () => {
+// Feedback Screen -
+//Allows user to send feedbck about application experience
+// It contains three input fields for the user namely:- email, subject, and message
+const FeedbackScreen = () => {
     return (
-        <ScrollView bg="white">
-        <Center flex={1} >
+        <ScrollView style={{ backgroundColor: "white" }}>
             <Box
                 flex={1}
-                p={2}
-                w="90%"
+                p={5}
+                w="100%"
                 mx='auto'
-            >
-                <Heading size="lg" color='primary.500'>
-                    Welcome
-        </Heading>
-                <Heading color="muted.400" size="xs">
-                    Sign up to continue!
-        </Heading>
 
+            >
+                <Heading size="lg" mt="4" color='primary.500'>
+                    Send Feedback
+        </Heading>
                 <VStack space={2} mt={5}>
                     <FormControl>
                         <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
@@ -41,27 +35,26 @@ const SignUpScreen = () => {
                     </FormControl>
                     <FormControl>
                         <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-                            Password
+                            Subject
             </FormControl.Label>
-                        <Input type="password" />
+                        <Input />
                     </FormControl>
                     <FormControl>
                         <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-                            Confirm Password
+                            Message
             </FormControl.Label>
-                        <Input type="password" />
+                        <TextArea h={20} placeholder="Enter message....." />
+                        {/* <Input type="password" /> */}
                     </FormControl>
                     <VStack space={2} mt={5}>
                         <Button colorScheme="cyan" _text={{ color: 'white' }}>
-                            SignUp
+                            Submit
           </Button>
-
                     </VStack>
                 </VStack>
             </Box>
-            </Center>
         </ScrollView>
     );
-}
+};
 
-export default SignUpScreen;
+export default FeedbackScreen;
