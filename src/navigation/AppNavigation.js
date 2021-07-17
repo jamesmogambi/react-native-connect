@@ -103,8 +103,8 @@ function contactNavigator(params) {
                     ),
                 })}
             />
-            <Stack.Screen name="ContactProfile" component={ContactProfileScreen} options={({ navigation }) => ({
-                title: "Profile",
+            <Stack.Screen name="ContactProfile" component={ContactProfileScreen} options={({ navigation,route }) => ({
+                title: route.params.item.firstname,
                 headerTintColor: '#fff',
                 headerStyle: { backgroundColor: "#27C0DA" }
             })} />

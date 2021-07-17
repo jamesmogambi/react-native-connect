@@ -12,7 +12,7 @@ import { DetailItem } from "../components/DetailItem";
 const ContactProfileScreen = ({ route, navigation }) => {
     const { user } = route.params;
     return ( 
-        <Box backgroundColor="white">
+        <Box backgroundColor="white" flex={1}>
             <DetailSection user={user} />
             <DetailItem iconName="email" title="Email" name={user.email} />
             <DetailItem iconName="phone-iphone" title="Personal" name={user.phone} />

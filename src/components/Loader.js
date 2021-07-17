@@ -1,19 +1,18 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Spinner } from "native-base";
+import { Spinner ,Box} from "native-base";
 
 
 // Loader component
 // with a spinner
-const Loader = () => {
+export const Loader = () => {
     return (
         <View style={styles.loader}>
-            <Spinner size="lg" color="#000000" />
+                <Spinner size='lg' color="#27C0DA" />
         </View>
     );
 };
 
-export default Loader;
 
 const styles = StyleSheet.create({
     // Loader component style
@@ -21,5 +20,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor:"white"
     },
 });
