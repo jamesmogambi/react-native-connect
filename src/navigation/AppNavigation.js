@@ -12,7 +12,7 @@ import ContactProfileScreen from "../screens/ContactProfileScreen";
 import FavouritesScreen from "../screens/FavouritesScreen";
 import UserContactScreen from "../screens/UserContactScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
-
+import DrawerContent from "./DrawerContent";
 
 
 
@@ -103,8 +103,8 @@ function contactNavigator(params) {
                     ),
                 })}
             />
-            <Stack.Screen name="ContactProfile" component={ContactProfileScreen} options={({ navigation,route }) => ({
-                title: route.params.item.firstname,
+            <Stack.Screen name="ContactProfile" component={ContactProfileScreen} options={({ navigation, route }) => ({
+                title: route.params.user.firstName,
                 headerTintColor: '#fff',
                 headerStyle: { backgroundColor: "#27C0DA" }
             })} />
@@ -136,11 +136,10 @@ function favouriteNavigator(params) {
                 })}
             />
             <Stack.Screen name="UserContact" component={UserContactScreen}
-                options={({ navigation }) => ({
-                    title: "User Contact",
+                options={({ navigation, route }) => ({
+                    title: route.params.user.firstName,
                     headerTintColor: '#fff',
                     headerStyle: { backgroundColor: "#27C0DA" }
-
                 })}
             />
         </Stack.Navigator>
@@ -224,7 +223,9 @@ export function AppNavigator() {
             initialRouteName="Home"
             drawerContentOptions={{
                 activeTintColor: '#27C0DA',
+                inactiveTintColor: 'black'
             }}
+            drawerContent={(props) => <DrawerContent {...props} />}
         >
             <Drawer.Screen name="Home" component={TabNavigator} />
             <Drawer.Screen name="FeedBack" component={FeedBackNavigator} />

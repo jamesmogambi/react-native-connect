@@ -6,7 +6,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 // Renders the contact of the user: avatar, name and mobile number
 const UserContactScreen = ({ route }) => {
     const { user } = route.params;
-    const { name, phone } = user;
+    console.log("")
+    const { title, firstName, lastName, email, picture } = user;
 
     return (
         <Center bg="#27C0DA" flex={1}>
@@ -14,14 +15,19 @@ const UserContactScreen = ({ route }) => {
                 size="xl"
                 borderWidth={3}
                 borderColor="white"
+                source={{
+                    uri: picture,
+                }}
             >
                 RS
             </Avatar>
             <VStack>
-                <Heading size="sm" color="white" mt={4}>{name}</Heading>
+                <Center>
+                    <Heading size="sm" color="white" mt={4}>{`${title} ${firstName} ${lastName}`}</Heading>
+                </Center>
                 <HStack space={2} >
-                    <MaterialIcons name="phone" color="white" size={20}/>
-                    <Text color="white">{phone}</Text>
+                    <MaterialIcons name="email" color="white" size={20} />
+                    <Text color="white">{email}</Text>
                 </HStack>
             </VStack>
         </Center>

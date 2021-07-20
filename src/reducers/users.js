@@ -1,10 +1,7 @@
-
-
-
 // users reducer:- 
 // this reducer stores users data that is queried from remote API.
 const initialState = {
-    users: null, error: ""
+    users: null, userProfile: null, error: "", loading: false
 };
 export default function usersReducer(state = initialState, action) {
     switch (action.type) {
@@ -12,12 +9,26 @@ export default function usersReducer(state = initialState, action) {
             return {
                 ...state,
                 users: action.payload,
-                error: ""
+                error: "",
+                loading: false
             };
-        case "GET_USERS_ERROR":
+        case "SET_LOADER":
             return {
                 ...state,
-                error: action.payload
+                loading: true,
+                userProfile: null
+            };
+        case "SET_USER_PROFILE":
+            return {
+                ...state,
+                userProfile: action.payload,
+                loading: false
+            };
+        case "FETCH_ERROR":
+            return {
+                ...state,
+                error: action.payload,
+                loading: false
             };
 
         default:

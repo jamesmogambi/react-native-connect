@@ -10,9 +10,9 @@ export const setUsers = (payload) => ({
 }
 );
 
-// GET_USERS_ERROR action
-export default getUsersError = (payload) => ({
-    type: "GET_USERS_ERROR",
+// FETCH_ERROR action
+export const fetchError = (payload) => ({
+    type: "FETCH_ERROR",
     payload
 
 });
@@ -23,12 +23,15 @@ export default getUsersError = (payload) => ({
 // otherwise on request error it dispatches  error action object with error message
 export function getUsers() {
     return function (dispatch) {
+        dispatch({ type: "SET_LOADER" });
         axios.get(`${BASE_URL}/user?limit=50`, { headers: { 'app-id': APP_ID } })
             .then(response => {
-                console.log(response);
                 // If request is good ...
                 // - Dispatch setUsers action 
-                dispatch(setUsers(response.data));
+                let { data } = response.data;
+                // console.log('getUsers', response.data);
+
+                dispatch(setUsers(data));
 
             })
             .catch((error) => {
@@ -36,31 +39,32 @@ export function getUsers() {
 
                 // If request is bad...
                 // -// Dispatch getUsersError action to store
-                dispatch(getUsersError("Error fetching users"))
+                dispatch(fetchError("Error fetching users"))
             })
-
-        // const configObject = {
-        //     method: "GET",
-        //     headers:
-        //     {
-        //         "Content-Type": "application / json",
-        //         "Accept": "application / json",
-        //         "app-id": "60f1d0186249d167bcbe7d20"
-        //     }
-        // };
-        // fetch("https://dummyapi.io/data/api/user?limit=100", configObject).then(response => {
-        //     console.log('fetch response', response);
-        //     // If request is good ...
-        //     // - Dispatch setUsers action 
-        //     dispatch(setUsers(response.data));
-
-        // })
-        //     .catch((error) => {
-        //         console.log(error);
-
-        //         // If request is bad...
-        //         // -// Dispatch getUsersError action to store
-        //         dispatch(getUsersError("Error fetching users"))
-        //     })
     }
 }
+
+// SET_USER_PROFILE action creator
+const setProfile = (payload) => ({
+    type: "SET_USER_PROFILE",
+    payload
+});
+
+
+// getUserProfile async redux action
+// -- queries full profile of a given user and dispatchs to the store SET_USER_PROFILE action
+export function getUserProfile(id) {
+    return function (dispatch) {
+        dispatch({ type: "SET_LOADER" });
+        axios.get(`${BASE_URL}/user/${id}`, { headers: { 'app-id': APP_ID } }).then(response => {
+            // request successful
+            dispatch(setProfile(response.data));
+        }).catch(err => {
+            // error fetching user profile
+            dispatch(fetchError("Error fetching user profile"));
+
+        })
+
+    }
+}
+

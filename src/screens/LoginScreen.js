@@ -10,16 +10,37 @@ import {
     Button,
     HStack,
     Center,
-    ScrollView
+    ScrollView,
 } from 'native-base';
+import { connect } from "react-redux";
+import { startLogin } from "../actions/auth";
 
 // LoginScreen- 
 // Allow users to input their account credentials namely: email id and password before submitting
 // for authentication
 const LoginScreen = (props) => {
+
+
+    // component state using react hook[useState] with input fields
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+
+    // submit handler :- submits user credentials to login async redux function if all values are input
+    // otherwise display error
+    const onPressSubmit = () => {
+        console.log('onPressSubmit', email, password);
+        if (email && password) {
+            let user = { email, password };
+            props.startLogin(user);
+        }
+
+    };
+
     return (
         <ScrollView bg="white">
-        <Center flex={1}  >
+            {/* {renderError()} */}
+            <Center flex={1} >
                 <Box
                     flex={1}
                     p={2}
@@ -38,13 +59,19 @@ const LoginScreen = (props) => {
                             <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
                                 Email ID
             </FormControl.Label>
-                            <Input />
+                            <Input
+                                value={email}
+                                onChangeText={(text) => setEmail(text)}
+                            />
                         </FormControl>
                         <FormControl mb={5}>
                             <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
                                 Password
             </FormControl.Label>
-                            <Input type="password" />
+                            <Input
+                                value={password}
+                                onChangeText={(text) => setPassword(text)}
+                            />
                             <Link
                                 _text={{ fontSize: 'xs', fontWeight: '700', color: 'cyan.500' }}
                                 alignSelf="flex-end"
@@ -54,14 +81,15 @@ const LoginScreen = (props) => {
             </Link>
                         </FormControl>
                         <VStack space={2}>
-                            <Button colorScheme="cyan" _text={{ color: 'white' }}>
+                            {props.error !== null && <Text color="red.500">{props.error}</Text>}
+                            <Button colorScheme="cyan" _text={{ color: 'white' }} isLoading={props.loading} onPress={onPressSubmit}>
                                 Login
           </Button>
 
-                                                   </VStack>
+                        </VStack>
                         <HStack justifyContent="center">
                             <Text fontSize='sm' color='muted.700' fontWeight={400}>I'm a new user. </Text>
-                        <Link _text={{ color: 'cyan.500', bold: true, fontSize: 'sm' }} onPress={() => props.navigation.navigate("SignUp")}>
+                            <Link _text={{ color: 'cyan.500', bold: true, fontSize: 'sm' }} onPress={() => props.navigation.navigate("SignUp")}>
                                 Sign Up
             </Link>
                         </HStack>
@@ -72,4 +100,20 @@ const LoginScreen = (props) => {
     )
 }
 
-export default LoginScreen;
+const mapStateToProps = (state) => {
+    let { loading, error } = state.auth;
+    return {
+        loading, error
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        startLogin: (user) => dispatch(startLogin(user))
+
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
